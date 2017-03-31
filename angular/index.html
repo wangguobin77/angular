@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>angular</title>
+	<link rel="stylesheet" href="css/index.css">
+	 <!-- <script src="js/rem.js"></script> -->
+	<script src="js/angular.js"></script>
+	<script src="js/index.js"></script>
+	
+
+</head>
+<body  ng-controller="c" >
+<div id="mask" ng-click="selecta=false" ng-show="selecta"></div>
+<div class="wrap" >
+	
+	<div class="left">
+		<div id="icloud">
+			<div class="l-icloud">
+				<div id="tx">
+					<label for=""id="label">提醒事项</label>
+					<div id="icloud-image" ></div>
+
+				
+					<div id="jt"></div>
+				</div>
+			</div>
+				<!-- 添加 -->
+			<div id="r-icloud" ng-click="add()" >
+				
+			</div>
+		</div>
+
+		<!-- 左下 -->
+		<div id="jihua">
+			<div id="jihua1">
+				<div id="view">
+					<div class="yjh">
+						<div class="yjh-nav">
+							<div class="jh-icon"></div>
+							<label class="title"for="">已计划</label>
+
+						</div>
+
+
+					</div>
+
+
+			<!-- 列表 -->
+				 <div id="lb">
+				 	<div class="xlb" ng-repeat="v in data" ng-model="title"  ng-click="cli($index)" ng-style="{background:$index==index?'#000':''}">
+				 		
+				 			<div class="xlb-nav">
+				 				<div class="color-icon" ng-style='{background:v.color}'></div>
+				 				<label for="" class="title" >{{v.title}}</label>
+				 				<div class="shezhi"></div>
+				 				<div class="row-bottom"></div>
+				 			</div>
+				 			
+				 		
+				 	</div>
+				</div>
+		</div>
+
+		</div>
+	</div>
+		
+	</div>
+
+<!-- 右边 -->
+	<div id="right">
+		<div class="rightnav">
+			<div class="top">
+				<div id="t-left">
+					<div class="padd">
+						<div class="sstx"></div>
+						<input type="text" placeholder="搜索所有提醒" ng-model="$scope.data[$scope.index].title">
+					</div>
+
+					<div id="fdj">
+						<div class="fdj-img"></div>
+					</div>
+				</div>
+				<div id="t-right">
+					<div class="sz-zx">
+						<label for="">ICLOUD</label>
+						<div id="jt1"></div>
+					</div>
+					<div class="xian"></div>
+					<div id="bz">
+						<div class="img"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="right-xia">
+			<div class="select">
+				
+				<label for="" class="xlbb" ng-style="{color:data[index].color}">{{data[index].title}}</label>
+
+<!-- 选项点击事件 -->
+				<label for="" ng-style="{color:data[index].color}" ng-click="select()">选项</label>
+			</div>
+
+			<div id="xiangmu">
+				<div class="ywc">
+
+<!-- 已完成 -->
+					<span class='yuan' style="width:20px;height:20px;background:#000;border-radius:0" ng-click="selectaa()" ng-style="{backgroundColor:data[index].color}"></span>
+					<div class="label-nav" ng-style="{color:data[index].color}">	已完成:{{(data[index].todo|filter:{type:true}).length}}项</div>
+
+				</div>
+				<div class="row1"></div>
+			</div>
+
+			<div id="xiangmu xiamgmu1" ng-repeat="v in data[index].todo|filter:{type:true}" ng-show="selecta1" ng-style="{color:data[index].color}">
+
+				<div class="ywc">
+					<span class='yuan'ng-style="{backgroundColor:data[index].color}" ng-click="remove($index)"></span>
+					<div class="label-nav" contenteditable=true ng-style="{color:data[index].color}">{{v.t}}</div>
+
+				</div>
+				<div class="row1"></div>
+			</div>
+
+   <!-- 未完成 -->
+	   <div id="xiangmu wwc" >
+			<div class="ywc">
+				<span class='yuan' style="width:20px;height:20px;background:#000;border-radius:0" ng-click="selectbb()" ng-style="{backgroundColor:data[index].color}"></span>
+				<div class="label-nav"  ng-style="{color:data[index].color}">未完成:{{(data[index].todo|filter:{type:false}).length}}项
+				</div>
+
+			</div>
+				<div class="row1"></div>
+		</div>
+		
+	
+		<div id="xiangmu xiamgmu1" ng-repeat="v in data[index].todo|filter:{type:false}" ng-show="selecta2">
+				<div class="ywc">
+					<span class='yuan' ng-style="{backgroundColor:data[index].color}" ng-model="cor"  ng-click="remove($index)" ng-style="{color:data[index].color}"></span>
+					<div class="label-nav" 
+					ng-style="{color:data[index].color}" 
+					ng-blur="save($event,v)"contenteditable=true>{{v.t}}</div>
+
+				</div>
+				<div class="row1"></div>
+		</div>
+<!-- 新项目 -->
+		<div id="xiangmu xxm" >
+			<div class="ywc">
+				<div class="label-nav" ng-click="tj()">	新项目</div>
+
+			</div>
+			<div class="row1"></div>
+		</div>
+
+
+
+
+
+	</div>
+
+		
+	</div>
+</div>
+
+
+<!-- 选择颜色 -->
+<div id="xx" ng-show="selecta">
+	<div class="ts">
+		<div class="sjx"></div>
+	</div>
+	<div class="view">
+		<div class="viewnav">
+			<input type="text" value="{{data[index].title}}" ng-model="r" ng-style="{color:changeColor}">
+			<div class="lb">列表颜色</div>
+
+
+			<div class="sb" >
+				<div class="xy" ng-repeat="v in colors" ng-style="{background:v,borderColor:v==changeColor?v:''}" ng-click="setting(v)"></div>
+			</div>
+			<div id="bottom">
+				<span ng-click="del()">删除</span>
+				<span ng-click="selecta=false">取消</span>
+				<span ng-click="wc()">完成</span>
+			</div>
+
+
+		</div>
+
+	</div>
+	
+</div>
+
+
+</body>
+</html>
